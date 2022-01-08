@@ -22,12 +22,12 @@ func Test_LoginFTP(t *testing.T) {
 	mock := NewFtpService()
 	t.Run("Sucess", func(t *testing.T) {
 		client, _ := mock.ConnectFTP("localhost", "21")
-		error := mock.LoginFTP(*client, "anonymous", "anonymous")
+		error := mock.LoginFTP(*client, "alexandre", "21012001")
 		assert.NoError(t, error)
 	})
 	t.Run("Error", func(t *testing.T) {
 		client, _ := mock.ConnectFTP("localhost", "21")
-		error := mock.LoginFTP(*client, "anonymous", "")
+		error := mock.LoginFTP(*client, "alexandre", "")
 		assert.Error(t, error)
 	})
 }

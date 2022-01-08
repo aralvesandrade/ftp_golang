@@ -50,11 +50,7 @@ func (f *FtpService) ReadFileFTP(client ftp.ServerConn, path, file string) ([]by
 		return nil, error
 	}
 
-	buf, error := ioutil.ReadAll(response)
-
-	if error != nil {
-		return nil, error
-	}
+	buf, _ := ioutil.ReadAll(response)
 
 	return buf, nil
 }
