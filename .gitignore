@@ -1,0 +1,15 @@
+#Files
+*.out
+*.html
+*.htm
+.env
+.env.*
+*env.json
+ftp
+
+#Folders
+.vscode/
+.git/
+debug/
+vendor/
+.scannerwork/
