@@ -2,25 +2,29 @@
 echo "Install vsftpd"
 sudo apt-get update
 sudo apt-get install vsftpd
-sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.original
+
+echo "Create dir ftp/arquivos"
+sudo mkdir -p /var/ftp/arquivos
+sudo chown nobody:nogroup /var/ftp/arquivos
+ 
+echo "Create file sample.txt"
+echo "vsftpd test file" | sudo tee /var/ftp/arquivos/sample.txt
+
+echo "Alter file vsftpd.conf"
 sudo chmod 777 /etc/vsftpd.conf
-sudo adduser ftpuser
-sudo mkdir /home/ftpuser/ftp
-sudo chown nobody:nogroup /home/ftpuser/ftp
-sudo chmod a-w /home/ftpuser/ftp
-sudo mkdir /home/ftpuser/ftp/arquivos
-sudo chown ftpuser:ftpuser /home/ftpuser/ftp/arquivos
-echo "vsftpd sample file" | sudo tee /home/ftpuser/ftp/arquivos/sample.txt
 echo '#
-#Custom
-anonymous_enable=NO
-local_enable=YES
-write_enable=YES
-chroot_local_user=YES
-user_sub_token=$USER
-local_root=/home/$USER/ftp
+anonymous_enable=YES
+local_enable=NO
+anon_root=/var/ftp/
+no_anon_password=YES
+hide_ids=YES
 pasv_min_port=40000
 pasv_max_port=50000' >> /etc/vsftpd.conf
+
 echo "Restart vsftpd"
 sudo systemctl restart vsftpd
+
 echo "Done!"
+
+#sudo apt-get remove --auto-remove vsftpd
+#sudo apt-get purge --auto-remove vsftpd
