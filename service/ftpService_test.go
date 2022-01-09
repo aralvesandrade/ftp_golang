@@ -1,6 +1,7 @@
 package service
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -54,5 +55,18 @@ func Test_ReadFileFTP(t *testing.T) {
 		assert.NoError(t, error)
 		_, error = mock.ReadFileFTP(*client, "arquivos/", "teste.txt")
 		assert.Error(t, error)
+	})
+}
+
+func Test_SendFileFTP(t *testing.T) {
+	mock := NewFtpService()
+	t.Run("Sucess", func(t *testing.T) {
+		os.Create("sample.txt")
+		client, _ := mock.ConnectFTP("localhost", "21")
+		error := mock.LoginFTP(*client, "anonymous", "anonymous")
+		assert.NoError(t, error)
+		error = mock.SendFileFTP(*client, "arquivos/", "sample.txt")
+		os.Remove("sample.txt")
+		assert.NoError(t, error)
 	})
 }

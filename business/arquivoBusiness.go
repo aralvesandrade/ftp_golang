@@ -1,6 +1,8 @@
 package business
 
 import (
+	"os"
+
 	"labs.com/ftp/service"
 )
 
@@ -10,6 +12,7 @@ type ArquivoBusiness struct {
 
 type IArquivoBusiness interface {
 	LerArquivo() ([]byte, error)
+	CriarArquivo() error
 }
 
 func NewArquivoBusiness(ftpService service.IFtpService) IArquivoBusiness {
@@ -34,4 +37,21 @@ func (b *ArquivoBusiness) LerArquivo() ([]byte, error) {
 	}
 
 	return buf, nil
+}
+
+func (b *ArquivoBusiness) CriarArquivo() error {
+	file, error := os.Create("./sample.txt")
+
+	if error != nil {
+		return error
+	}
+	defer file.Close()
+
+	_, error = file.WriteString("teste")
+
+	if error != nil {
+		return error
+	}
+
+	return nil
 }

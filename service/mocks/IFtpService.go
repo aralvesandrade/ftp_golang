@@ -49,13 +49,13 @@ func (_m *IFtpService) LoginFTP(client ftp.ServerConn, user string, pass string)
 	return r0
 }
 
-// ReadFileFTP provides a mock function with given fields: client, path, file
-func (_m *IFtpService) ReadFileFTP(client ftp.ServerConn, path string, file string) ([]byte, error) {
-	ret := _m.Called(client, path, file)
+// ReadFileFTP provides a mock function with given fields: client, path, fileName
+func (_m *IFtpService) ReadFileFTP(client ftp.ServerConn, path string, fileName string) ([]byte, error) {
+	ret := _m.Called(client, path, fileName)
 
 	var r0 []byte
 	if rf, ok := ret.Get(0).(func(ftp.ServerConn, string, string) []byte); ok {
-		r0 = rf(client, path, file)
+		r0 = rf(client, path, fileName)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).([]byte)
@@ -64,10 +64,24 @@ func (_m *IFtpService) ReadFileFTP(client ftp.ServerConn, path string, file stri
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(ftp.ServerConn, string, string) error); ok {
-		r1 = rf(client, path, file)
+		r1 = rf(client, path, fileName)
 	} else {
 		r1 = ret.Error(1)
 	}
 
 	return r0, r1
+}
+
+// SendFileFTP provides a mock function with given fields: client, path, fileName
+func (_m *IFtpService) SendFileFTP(client ftp.ServerConn, path string, fileName string) error {
+	ret := _m.Called(client, path, fileName)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(ftp.ServerConn, string, string) error); ok {
+		r0 = rf(client, path, fileName)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
 }
