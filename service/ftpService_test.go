@@ -27,7 +27,7 @@ func Test_LoginFTP(t *testing.T) {
 	})
 	t.Run("Error", func(t *testing.T) {
 		client, _ := mock.ConnectFTP("localhost", "21")
-		error := mock.LoginFTP(*client, "anonymous", "")
+		error := mock.LoginFTP(*client, "", "")
 		assert.Error(t, error)
 	})
 }
